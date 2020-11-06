@@ -20,3 +20,7 @@ To REPL:
 To test:
 
 - `./verify.sh` (Runs typelint and then unittests)
+
+IDE:
+
+- `pycharm`, update interpeter setting to point at venv.

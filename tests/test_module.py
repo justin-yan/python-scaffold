@@ -9,7 +9,7 @@ class TestModule(unittest.TestCase):
 
     @given(st.integers())
     def test_hypothesis(self, n):
-        assert test(n) == n + 1
+        assert test(n) == n + 2
 
     def test_add(self):
         self.assertEqual(test(0), 2)
