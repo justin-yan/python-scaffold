@@ -8,6 +8,7 @@ requests = "*"
 setuptools = "*"
 hypothesis = "*"
 mypy = "*"
+pytest = "*"
 
 [dev-packages]
 scaffold = {editable = true, path = "."}

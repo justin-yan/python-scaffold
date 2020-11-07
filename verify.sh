@@ -2,4 +2,4 @@
 set -ex
 
 mypy --check-untyped-defs scaffold tests
-python -m unittest
+pytest -s --hypothesis-show-statistics
