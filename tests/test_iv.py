@@ -2,7 +2,7 @@ import unittest
 from hypothesis import given
 import hypothesis.strategies as st
 
-from scaffold.module import test
+from scaffold.iv import test
 
 @unittest.skip("")
 class TestModule(unittest.TestCase):
