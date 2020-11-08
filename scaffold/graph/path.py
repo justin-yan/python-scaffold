@@ -19,8 +19,8 @@ def minimumEffortPath(heights: List[List[int]]) -> int:
     efforts[0][0] = 0
     search_queue = PriorityQueue()
     search_queue.put((0, 0, 0))
-    while search_queue:
-        marg_effort, x, y = search_queue.get()
+    while not search_queue.empty():
+        effort, x, y = search_queue.get()
         if (x, y) == (numrows - 1, numcols - 1):
             return efforts[x][y]
         for rowdelta, coldelta in [(1,0),(0,1),(-1,0),(0,-1)]:
@@ -35,8 +35,41 @@ def minimumEffortPath(heights: List[List[int]]) -> int:
                 # will also prevent us from adding any node to the search queue twice.
                 if efforts[candrow][candcol] > proposed_path_effort:
                     efforts[candrow][candcol] = proposed_path_effort
-                    search_queue.put((marginaleffort, candrow, candcol))
+                    search_queue.put((proposed_path_effort, candrow, candcol))
     return efforts[numrows - 1][numcols - 1]
 
+
+# https://leetcode.com/problems/path-with-maximum-probability/
+# Probability on edges combines multiplicatively and will monotonically decrease, which means expanding by the largest probability
+# will make any total-path probability calculation inductively optimal, so djikstra's should work.
+# Track probabilities for each node, initialize to 0.  Initialize start node to 1.  Loop until last node.
+# Pop from priority queue.
+# Take all legal neighbors, calculate new effort by taking current node and multiplying by edge probability.
+# Update effort graph if probability is higher, and add to priority queue to search ordered by best full path probability.
+# return 0 if there is no path (i.e. exit loop, but not at end)
+def maxProbability(n: int, edges: List[List[int]], succProb: List[float], start: int, end: int) -> float:
+    probabilities = [0.0 for i in range(n)]
+    probabilities[start] = 1.0
+    adjacencymatrix = defaultdict(set)
+    for idx, edge in enumerate(edges):
+        adjacencymatrix[edge[0]].add((edge[1], idx))
+        adjacencymatrix[edge[1]].add((edge[0], idx))
+    search_queue = PriorityQueue()
+    search_queue.put((1, start))
+    while not search_queue.empty():
+        stepprob, node = search_queue.get()
+        if node == end:
+            return probabilities[node]
+        for neighbor, edgeindex in adjacencymatrix[node]:
+            curprob = probabilities[node]
+            stepprob = curprob * succProb[edgeindex]
+            if probabilities[neighbor] < stepprob:
+                probabilities[neighbor] = stepprob
+                # We want the largest values first, so we need to reverse the priority queue search order
+                search_queue.put((-stepprob, neighbor))
+    return 0
+
+
 if __name__ == "__main__":
-    minimumEffortPath([[4,3,4,10,5,5,9,2],[10,8,2,10,9,7,5,6],[5,8,10,10,10,7,4,2],[5,1,3,1,1,3,1,9],[6,4,10,6,10,9,4,6]])
+    # minimumEffortPath([[4,3,4,10,5,5,9,2],[10,8,2,10,9,7,5,6],[5,8,10,10,10,7,4,2],[5,1,3,1,1,3,1,9],[6,4,10,6,10,9,4,6]])
+    print(maxProbability(3, [[0,1]], [.5], 0, 2))
