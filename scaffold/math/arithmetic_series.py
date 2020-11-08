@@ -9,7 +9,7 @@ from typing import List
 # The key insight is that you can use the identity (1 + 2 + 3 + ... + n) = n(n+1)/2 to calculate many iterations in a "single" shot:
 # [100000000, 200000, 40000, 8000] -> [200000, 200000, 40000, 8000] -> [40000, 40000, 40000, 8000] -> [8000, 8000, 8000, 8000] -> [0, 0, 0, 0]
 # Each arrow is should require just a single set of multiplications.
-def maxProfit(self, inventory: List[int], orders: int) -> int:
+def maxProfit(inventory: List[int], orders: int) -> int:
     # Start by sorting the inventory.
     inventory.sort()
     # This variable keeps track of how many stacks are currently being drawn from

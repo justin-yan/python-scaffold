@@ -3,7 +3,7 @@ from typing import List
 
 
 # https://leetcode.com/problems/shift-2d-grid/
-def shiftGrid(self, grid: List[List[int]], k: int) -> List[List[int]]:
+def shiftGrid(grid: List[List[int]], k: int) -> List[List[int]]:
     # Use divmod to calculate an initial offset.
     # Walk the matrix and slot elements into place following the shifting rules
     height = len(grid)

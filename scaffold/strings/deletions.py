@@ -8,7 +8,7 @@ from collections import Counter
 # I.e. aaaabbbbccc -> bbbbcccaa vs. bbbbaaacc requires the same number of deletions.
 # Therefore, you just want to fill in frequency slots as "cheaply" as possible.
 # So we loop over the frequency hashmap, and make the minimal number of deletions to slot into frequency slots (tracked by set)
-def minDeletions(self, s: str) -> int:
+def minDeletions(s: str) -> int:
     frequencies = Counter(s)
     frequencyslots = set()
     deletions = 0

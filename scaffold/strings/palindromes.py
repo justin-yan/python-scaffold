@@ -2,7 +2,7 @@ def isPalindrome(s):
     return s == s[::-1]
 
 # https://leetcode.com/problems/longest-palindromic-substring/
-def longestPalindrome(self, s: str) -> str:
+def longestPalindrome(s: str) -> str:
     # The brute-force solution would be to do the N^2 check of every starting index vs. every ending index
     # curmax = 0
     # string = None

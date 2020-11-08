@@ -4,7 +4,7 @@ class ListNode:
         self.val = val
         self.next = next
 
-def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+def addTwoNumbers(l1: ListNode, l2: ListNode) -> ListNode:
     cursor1 = l1
     cursor2 = l2
     outputhead = outputcursor = ListNode(0) # double assignment

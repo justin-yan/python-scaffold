@@ -2,7 +2,7 @@
 from typing import Dict
 
 
-def lengthOfLongestSubstring(self, s: str) -> int:
+def lengthOfLongestSubstring(s: str) -> int:
     # A greedy-ish solution works, but the idea is that when you hit the second instance of a char
     # you update the starting point from which you are considering substrings
     # you move the cursor *forward* to the char after the previous instance you had seen
