@@ -1,7 +1,7 @@
 from typing import List
 
 
-# https://leetcode.com/contest/weekly-contest-214/problems/sell-diminishing-valued-colored-balls/
+# https://leetcode.com/problems/sell-diminishing-valued-colored-balls/
 # The overall approach is pretty straight-fowardly "greedy" - you always want to sell from the biggest remaining pile.
 # When two piles are the same, you alternative drawing from them until they reach the size of the third largest pile... and so on.
 # However, the test cases are set up like [100000000, 100000000, 100000000, 100000000], 100000000 - which will result
