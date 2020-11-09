@@ -17,7 +17,7 @@ def minimumEffortPath(heights: List[List[int]]) -> int:
     numrows, numcols = len(heights), len(heights[0])
     efforts = [[9999999 for i in range(numcols)] for j in range(numrows)]
     efforts[0][0] = 0
-    search_queue = PriorityQueue()
+    search_queue: PriorityQueue = PriorityQueue()
     search_queue.put((0, 0, 0))
     while not search_queue.empty():
         effort, x, y = search_queue.get()
@@ -54,7 +54,7 @@ def maxProbability(n: int, edges: List[List[int]], succProb: List[float], start:
     for idx, edge in enumerate(edges):
         adjacencymatrix[edge[0]].add((edge[1], idx))
         adjacencymatrix[edge[1]].add((edge[0], idx))
-    search_queue = PriorityQueue()
+    search_queue: PriorityQueue = PriorityQueue()
     search_queue.put((1, start))
     while not search_queue.empty():
         stepprob, node = search_queue.get()
