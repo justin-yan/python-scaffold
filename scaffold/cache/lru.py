@@ -54,6 +54,21 @@ class LRU2:
         self.capacity = capacity
         self.hash: Dict[int, LRUNode] = {}
 
+    def _move_to_head(self, candidate_node: LRUNode):
+        assert candidate_node.previous is not None
+        assert self.head is not None
+        candidate_node.previous.next = candidate_node.next
+        # We don't want to swap if the candidate_node is already at the head of the list.
+        if candidate_node.next:
+            candidate_node.next.previous = candidate_node.previous
+        else:  # this means candidate_node is the tail
+            self.tail = candidate_node.previous
+        # Finally, we must move the candidate to the head.
+        candidate_node.next = self.head
+        candidate_node.previous = None
+        self.head.previous = candidate_node
+        self.head = candidate_node
+
     # Return -1 if it doesn't exist
     def get(self, key):
         if key not in self.hash:
@@ -61,18 +76,7 @@ class LRU2:
         else:
             candidate_node = self.hash[key]
             if candidate_node.previous:
-                candidate_node.previous.next = candidate_node.next
-                # We don't want to swap if the candidate_node is already at the head of the list.
-                if candidate_node.next:
-                    candidate_node.next.previous = candidate_node.previous
-                else:  # this means candidate_node is the tail
-                    self.tail = candidate_node.previous
-                # Finally, we must move the candidate to the head.
-                candidate_node.next = self.head
-                candidate_node.previous = None
-                assert self.head is not None
-                self.head.previous = candidate_node
-                self.head = candidate_node
+                self._move_to_head(candidate_node)
             return candidate_node.value
 
     def put(self, key, value):
@@ -84,18 +88,7 @@ class LRU2:
             candidate_node.value = value
             # If there is a prior node, then swapping must occur
             if candidate_node.previous:
-                candidate_node.previous.next = candidate_node.next
-                # We don't want to swap if the candidate_node is already at the head of the list.
-                if candidate_node.next:
-                    candidate_node.next.previous = candidate_node.previous
-                else:  # this means candidate_node is the tail
-                    self.tail = candidate_node.previous
-                # Finally, we must move the candidate to the head.
-                candidate_node.next = self.head
-                candidate_node.previous = None
-                assert self.head is not None
-                self.head.previous = candidate_node
-                self.head = candidate_node
+                self._move_to_head(candidate_node)
         else:  # This is a new key
             self.count += 1
             candidate_node = LRUNode(key, value)
