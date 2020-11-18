@@ -1,6 +1,6 @@
 from collections import deque, defaultdict, namedtuple, OrderedDict, Counter
 from itertools import chain, permutations
-from typing import List, Any, Callable, Dict, Deque, NamedTuple, Optional, Counter
+from typing import List, Any, Callable, Dict, Deque, NamedTuple, Optional
 from queue import PriorityQueue
 
 def add2(num: int) -> int:
