@@ -69,7 +69,7 @@ class Fenwick:
 
     def add(self, index, value):
         internal_index = index + 1  # Fenwick tree storage assumes 1-indexed array
-        while internal_index <= self.size + 1:
+        while internal_index <= self.size:
             self.arr[internal_index] += value
             internal_index += internal_index & -internal_index
 
