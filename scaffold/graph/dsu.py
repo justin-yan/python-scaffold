@@ -9,8 +9,9 @@ class DSU:
 
     def find(self, p):
         while p != self.pointer_array[p]:
-            # Path compression on repetitive queries
-            p = self.pointer_array[p] = self.pointer_array[self.pointer_array[p]]
+            twohop = self.pointer_array[self.pointer_array[p]]
+            self.pointer_array[p] = twohop  # compress
+            p = twohop
         return p
 
     def union(self, p, q):
